@@ -1,0 +1,26 @@
+<div class="animate__animated animate__fadeIn" style="width: 30%;margin: auto;margin-top: 0;">
+
+    <div style="margin: 12px;">
+        <div class="row">
+            <div class="col-xl-3" style="width: 50%"><label class="col-form-label fs-2 fw-bold" style="margin: auto">Crear cliente</label></div>
+            <div class="col text-end"><button class="btn btn-primary" routerLink="/listaDeUsuarios" type="button" style="height: 36px;font-size: 14px;width: 96px;margin-top: 16px;">Ver Tabla</button></div>
+        </div>
+    </div>
+    <hr />
+
+    <form (ngSubmit)="guardar(f)" #f = "ngForm" style="margin: 12px;">
+        <label class="form-label fs-5 fw-normal">Nombre</label>
+        <input class="form-control" type="text" name="nombre" required placeholder="Nombre del usuario" [(ngModel)]="cliente.nombre"/>
+
+        <label class="form-label fs-5 fw-normal">Apellido</label>
+        <input class="form-control" type="text" name="apellido" required placeholder="Apellido del usuario" [(ngModel)]="cliente.apellido"/>
+
+        <label class="form-label fs-5 fw-normal">Dirección</label>
+        <input class="form-control" type="text" name="direccion" required placeholder="Dirección del usuario" [(ngModel)]="cliente.direccion"/>
+
+        <div class="text-center" style="padding-top: 0px;margin-top: 16px;"><button class="btn btn-primary" type="submit">Crear cliente</button></div>
+    </form>
+</div>
+   
+
+
