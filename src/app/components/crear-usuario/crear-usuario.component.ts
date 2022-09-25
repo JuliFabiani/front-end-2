@@ -28,7 +28,7 @@ export class CrearUsuarioComponent implements OnInit {
     notiHandler.notificacion("Se envió la consulta. Esperando respuesta.", "alert-primary");
     
     let startFrom = new Date().getTime();
-     
+    console.log(this.cliente);
     this.clienteService.crearCliente(this.cliente).subscribe(resp => { 
       // console.log(resp);
       console.log(`Tiempo de respuesta: ${new Date().getTime() - startFrom} milisegundos.`);

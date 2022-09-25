@@ -2,8 +2,13 @@
 
   <div style="margin: 12px;">
       <div class="row">
-          <div class="col-xl-3"><label class="col-form-label fs-2 fw-bold" style="margin: auto;">Tabla de clientes</label></div>
-          <div class="col text-end"><button class="btn btn-primary" routerLink="/crearUsuario" type="button" style="height: 36px;font-size: 14px;width: 154px;margin-top: 16px;">Crear cliente</button></div>
+        <div class="col-xl-3">
+          <label class="col-form-label fs-2 fw-bold" style="margin: auto;">Tabla de clientes</label>
+        </div>
+        <div class="col text-end">
+          <button class="btn btn-outline-primary" *ngIf="clienteEliminado!=null" id="buttonDeshacer" (click)="deshacer()" type="button" style="height: 36px;font-size: 14px;width: 154px;margin-top: 16px; margin-right: 8px;">Restaurar</button>
+          <button class="btn btn-primary" routerLink="/crearUsuario" type="button" style="height: 36px;font-size: 14px;width: 154px;margin-top: 16px;">Crear cliente</button>
+        </div>
       </div>
   </div>
   <hr />

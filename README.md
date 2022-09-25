@@ -9,3 +9,5 @@ Reversión del ejercicio de front-end.
 - Agregado botón para eliminar cliente.
 - Agregado boton para modificar un cliente específico.
 - Agregado switch debug.
+- Agregado sistema de 'deshacer' al eliminar un cliente.
+    - Es importante bajar el delay del simulador de latencia, en el servidor webAPI, que por defecto simula un delay entre 1500-3000 ms. Considerar reducirlo a 500-1000ms.

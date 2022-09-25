@@ -17,7 +17,7 @@ export class APIService {
     return this.http.get(this.webApiUrl, {observe: 'response'});
   }; 
   consultarCliente(id:number) {
-    return this.http.get(`${this.webApiUrl}/${id}`, {observe: 'response'});
+    return this.http.get(`${this.webApiUrl}${id}`, {observe: 'response'});
   }  
   crearCliente(cliente:ClienteModel) {
     return this.http.post(this.webApiUrl, cliente, {observe: 'response'});
