@@ -7,6 +7,8 @@ import { NotificacionClass } from '../notificacion/notificacion.component';
 
 declare var bootstrap: any;
 
+
+
 @Component({
   selector: 'app-lista-de-usuarios',
   templateUrl: 'lista-de-usuarios.component.html',
@@ -19,6 +21,8 @@ export class ListaDeUsuariosComponent implements OnInit {
   
   cargando:boolean = true;
   notiHandler = new NotificacionClass();
+  eliminadoAttr = '';
+  clienteEliminado:any;
 
   constructor(private clientService:APIService, private router:Router) {  }
   ngOnInit(): void {
@@ -58,13 +62,23 @@ export class ListaDeUsuariosComponent implements OnInit {
   eliminar(id:number) {
 
     let startFrom = new Date().getTime();
-    this.notiHandler.notificacion("Se envió la consulta para eliminar. Esperando respuesta.", "alert-primary");
-    this.clientService.eliminarCliente(id).subscribe(resp => { 
-      // console.log(resp);
-      console.log(`Tiempo de respuesta: ${new Date().getTime() - startFrom} milisegundos.`);
+    
+    this.notiHandler.notificacion("Se envió la consulta para guardar temporalmente. Esperando respuesta.", "alert-primary");
+    this.clientService.consultarCliente(id).subscribe(resp => { 
+      this.clienteEliminado = resp.body;
+      // document.getElementById("buttonDeshacer")?.removeAttribute("disabled");      
       this.notiHandler.notificacion("Respuesta OK.", "alert-success");
-      this.cargar();     
+
+      this.notiHandler.notificacion("Se envió la consulta para eliminar. Esperando respuesta.", "alert-primary");
+      this.clientService.eliminarCliente(id).subscribe(resp => { 
+        // console.log(resp);
+        console.log(`Tiempo de respuesta: ${new Date().getTime() - startFrom} milisegundos.`);
+        this.notiHandler.notificacion("Respuesta OK.", "alert-success");
+        this.cargar();     
+  
+      });
     });
+
   }
   modalModificar(id:number) {
     let myModal = new bootstrap.Modal(document.getElementById('editarClienteModal'), {});
@@ -79,5 +93,19 @@ export class ListaDeUsuariosComponent implements OnInit {
     document.getElementById('editarClienteModalNombre')?.setAttribute("disabled", '');
     
   }
-}
+  deshacer() {
+    let startFrom = new Date().getTime();
+    console.log(this.clienteEliminado);
 
+    this.notiHandler.notificacion("Se envió la consulta para volver a crear. Esperando respuesta.", "alert-primary");
+    this.clientService.crearCliente(this.clienteEliminado).subscribe(resp => { 
+      // console.log(resp);
+      console.log(`Tiempo de respuesta: ${new Date().getTime() - startFrom} milisegundos.`);
+      this.router.navigate(['listaDeUsuarios']);
+      this.notiHandler.notificacion("Respuesta OK. Redirigiendo a la tabla.", "alert-success");
+      this.cargar();
+      // document.getElementById("buttonDeshacer")?.setAttribute("disabled", '');
+      this.clienteEliminado = null;
+    });
+  }
+}
